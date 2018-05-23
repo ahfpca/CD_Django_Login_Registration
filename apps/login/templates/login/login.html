@@ -56,7 +56,7 @@
         <!-- General Error -->
         {% if messages %}
             {% for message in messages %}
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR and message.extra_tags == '' %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR and message.extra_tags == 'general' %}
                     <h4 class="col-12 error text-center">{{ message }}</h4>
                 {% endif %}
             {% endfor %}

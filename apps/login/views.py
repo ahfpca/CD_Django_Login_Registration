@@ -55,10 +55,11 @@ def check(request):
                 return redirect("/login/success")
             else:
                 request.session["email_login"] = request.POST["email"]
-                messages.error(request, "You can not login to the website!")
+                messages.error(request, "You can not login to the website!", extra_tags = "general")
                 return redirect("/login")
         else:
-            messages.error(request, "You can not login to the website!")
+            messages.error(request, "You can not login to the website!", extra_tags = "general")
+            #messages.error(request, "You can not login to the website!")
             return redirect("/login")
 
     return redirect("/login")
