@@ -63,7 +63,7 @@ class UserManager(models.Manager):
                 birthMonth = brdate.month
 
                 if curYear < birthYear + ageLimit or (curYear == birthYear + ageLimit and curMonth < birthMonth):
-                    errors['birth_date'] = f"You should be at least {ageLimit} years old to register."
+                    errors['birth_date'] = "You should be at least 12 years old to register."
             except:
                 errors['birth_date'] = "Birth date is incorrect!"
 
