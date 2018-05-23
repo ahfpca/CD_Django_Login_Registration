@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'login/css/bootstrap.min.css' %}">
+    <style>
+        .error {
+            color: red;
+            margin-top: -8px;
+        }
+
+        .message {
+            color: green;
+        }
+
+        .red {
+            color: red;
+        }
+
+        label {
+            margin-bottom: 0px;
+        }
+
+        .dField {
+            margin-top: 10px;
+        }
+
+        h3 {
+            margin-left: -15px;
+        }
+
+        body {
+            background-color: rgb(22, 19, 16);
+            color: rgb(133, 113, 93);
+        }
+
+        input {
+            background-color: rgb(22, 19, 16);
+            color: rgb(133, 113, 93);
+            border-color: darkgray;
+        }
+
+    </style>
+    <title>Registration Form</title>
+</head>
+<body>
+    <br>
+    <br>
+    <div class="container">
+        <h1 class="row">Welcome to my website</h1>
+        <br>
+        <!-- General Error -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <h4 class="row error">{{ message }}</h4>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <!-- General Message -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level != DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <h4 class="row message">{{ message }}</h4>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <br>
+        <div class="row">
+            <!-- Registration section -->
+            <div class="col-6"> 
+                <h3>Awesome features ahead!</h3>
+                <br>
+                <h4>Hello {{ user.first_name }} {{ user.last_name }}</h4>
+                <form action="/login/logout" method="post">                    
+                    {% csrf_token %}              
+                    <input class="row dField" type="submit" value="logout">
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="{% static 'login/js/jquery-3.3.1.slim.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'login/js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'login/js/bootstrap.min.js' %}"></script>        
+</body>
+</html>

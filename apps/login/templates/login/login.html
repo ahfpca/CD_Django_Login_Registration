@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'login/css/bootstrap.min.css' %}">
+    <style>
+        .error {
+            color: red;
+            margin-top: -8px;
+        }
+
+        .message {
+            color: green;
+        }
+
+        .red {
+            color: red;
+        }
+
+        label {
+            margin-bottom: 0px;
+        }
+
+        .dField {
+            margin-top: 10px;
+        }
+
+        h3 {
+            margin-left: -15px;
+        }
+
+        body {
+            background-color: rgb(22, 19, 16);
+            color: rgb(133, 113, 93);
+        }
+
+        input {
+            background-color: rgb(22, 19, 16);
+            color: rgb(133, 113, 93);
+            border-color: darkgray;
+        }
+
+    </style>
+    <title>Registration Form</title>
+</head>
+<body>
+    <br>
+    <br>
+    <div class="container">
+        <h1 class="row">Login and Registration</h1>
+        <div class="row">
+        <!-- General Error -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR and message.extra_tags == '' %}
+                    <h4 class="col-12 error text-center">{{ message }}</h4>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <!-- General Message -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level != DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <h4 class="col-12 message text-center">{{ message }}</h4>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+        <div class="row">
+            <!-- Registration section -->
+            <div class="col-6"> 
+                <h3>Register here!</h3>
+                <form action="/login/register" method="post">
+                    {% csrf_token %}              
+                    <label class="row dField" for="first_name"><span class="red">*&nbsp;</span>First Name:</label>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == 'first_name' %}
+                                <label class="row error">{{ message }}</label>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <input class="row col-10" type="text" name="first_name" id="first_name" placeholder="" value="{{ request.session.first_name }}">
+
+                    <label class="row dField" for="last_name"><span class="red">*&nbsp;</span>Last Name:</label>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == 'last_name' %}
+                                <label class="row error">{{ message }}</label>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <input class="row col-10" type="text" name="last_name" id="last_name" placeholder="" value="{{ request.session.last_name }}">
+
+                    <label class="row dField" for="email"><span class="red">*&nbsp;</span>Email</label>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == 'email' %}
+                                <label class="row error">{{ message }}</label>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <input class="row col-10" type="email" name="email" id="email" placeholder="" value="{{ request.session.email }}">
+
+                    <label class="row dField" for="passcode"><span class="red">*&nbsp;</span>Password:</label>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == 'passcode' %}
+                                <label class="row error">{{ message }}</label>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <input class="row col-10" type="password" name="passcode" id="passcode" placeholder="" value="">
+
+                    <label class="row dField" for="{{ request.session.email }}"><span class="red">*&nbsp;</span>Confirm Password:</label>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == 'pass_confirm' %}
+                                <label class="row error">{{ message }}</label>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <input class="row col-10" type="password" name="pass_confirm" id="pass_confirm" placeholder="" value="">
+
+                    <label class="row dField" for="birth_date"><span class="red">*&nbsp;</span>Birth Date:</label>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == 'birth_date' %}
+                                <label class="row error">{{ message }}</label>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <input class="row col-10" type="date" name="birth_date" id="birth_date" placeholder="mm/dd/yyyy" value="{{ request.session.birth_date }}">
+                    
+                    <input class="row dField" type="submit" value="Register">
+                    <br>
+                </form>
+            </div>
+            <!-- Login section -->
+            <div class="col-6">
+                <h3>Login here!</h3>
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.extra_tags == 'user_login' %}
+                            <label class="row error">{{ message }}</label>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <form action="/login/check" method="post">
+                    {% csrf_token %}              
+                    <label class="row dField" for="email"><span class="red">*&nbsp;</span>Email</label>
+                    <input class="row col-10" type="email" name="email" id="email" placeholder="" value="{{ request.session.email_login }}">
+                    <label class="row dField" for="passcode"><span class="red">*&nbsp;</span>Password:</label>
+                    <input class="row col-10" type="password" name="passcode" id="passcode" placeholder="" value="">
+                    <input class="row dField" type="submit" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="{% static 'login/js/jquery-3.3.1.slim.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'login/js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'login/js/bootstrap.min.js' %}"></script>        
+</body>
+</html>
